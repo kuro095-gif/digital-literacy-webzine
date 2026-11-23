@@ -1,39 +1,116 @@
-const headlineExample = document.querySelector('[data-headline-example]');
+const story = document.querySelector('[data-story]');
 
-if (headlineExample) {
-  const headlines = [
-    { before: '시민들이 도심에 ', emphasis: '평화롭게', after: ' 모였다' },
-    { before: '시민들이 도심에 ', emphasis: '혼란을', after: ' 일으켰다' },
+if (story) {
+  const stage = story.querySelector('[data-story-stage]');
+  const panels = Array.from(stage.querySelectorAll('[data-scene]'));
+  const jumps = Array.from(stage.querySelectorAll('[data-story-jump]'));
+  const headlineButtons = Array.from(stage.querySelectorAll('[data-headline]'));
+  const secondHeadline = stage.querySelector('[data-headline="b"]');
+  const photoHeadline = stage.querySelector('[data-photo-headline]');
+  const headlineStatus = stage.querySelector('[data-headline-status]');
+  const reveals = Array.from(stage.querySelectorAll('[data-reveal-at]'), (element) => [
+    element, Number(element.dataset.revealAt),
+  ]);
+  const pinning = window.matchMedia(
+    '(prefers-reduced-motion: no-preference) and (min-width: 761px) and (min-height: 37rem), ' +
+    '(prefers-reduced-motion: no-preference) and (max-width: 760px) and (min-height: 41rem)',
+  );
+  const phases = [
+    { name: 'teach', scene: 'teach', start: 0.79 },
+    { name: 'evidence', scene: 'evidence', start: 0.58 },
+    { name: 'title-b', scene: 'headlines', start: 0.39, headline: 'b' },
+    { name: 'title-a', scene: 'headlines', start: 0.17, headline: 'a' },
+    { name: 'opening', scene: 'opening', start: 0 },
   ];
-  const buttons = Array.from(headlineExample.querySelectorAll('button[data-headline]'));
-  const caption = headlineExample.querySelector('[data-caption]');
-  const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  let transition;
+  let activePhase;
+  let animationFrame = 0;
 
-  buttons.forEach((button, index) => {
-    button.addEventListener('click', () => {
-      if (button.getAttribute('aria-pressed') === 'true') return;
+  function selectHeadline(button, announce = false) {
+    headlineButtons.forEach((choice) => {
+      choice.setAttribute('aria-pressed', String(choice === button));
+    });
 
-      const { before, emphasis, after } = headlines[index];
-      const highlight = document.createElement('strong');
-      highlight.textContent = emphasis;
-      caption.replaceChildren(before, highlight, after);
+    const line = button.querySelector('span');
+    photoHeadline.replaceChildren(...Array.from(line.childNodes, (node) => node.cloneNode(true)));
+    if (announce) headlineStatus.textContent = button.textContent.trim().replace(/\s+/g, ' ');
+  }
 
-      buttons.forEach((choice) => {
-        choice.setAttribute('aria-pressed', String(choice === button));
-      });
+  headlineButtons.forEach((button) => {
+    button.addEventListener('click', () => selectHeadline(button, true));
+  });
 
-      transition?.cancel();
-      if (!motion.matches && typeof caption.animate === 'function') {
-        transition = caption.animate(
-          [{ opacity: 0.35, transform: 'translateY(5px)' }, { opacity: 1, transform: 'translateY(0)' }],
-          { duration: 190, easing: 'ease-out' },
-        );
+  function updatePhase(phase) {
+    if (activePhase === phase) return;
+    activePhase = phase;
+    stage.dataset.phase = phase.name;
+    secondHeadline.hidden = phase.name === 'title-a';
+    panels.forEach((panel) => {
+      const active = panel.dataset.scene === phase.scene;
+      panel.classList.toggle('is-current', active);
+      panel.inert = !active;
+    });
+    jumps.forEach((button) => {
+      if (button.dataset.storyJump === phase.scene) {
+        button.setAttribute('aria-current', 'step');
+      } else {
+        button.removeAttribute('aria-current');
       }
     });
-  });
-}
+    if (phase.headline) selectHeadline(headlineButtons.find((button) => button.dataset.headline === phase.headline));
+  }
 
+  function storyDistance() {
+    return Math.max(1, story.offsetHeight - stage.offsetHeight);
+  }
+
+  function drawStory() {
+    animationFrame = 0;
+    if (!story.classList.contains('is-enhanced')) return;
+
+    const progress = Math.min(1, Math.max(0, -story.getBoundingClientRect().top / storyDistance()));
+    const movement = Math.min(1, Math.max(0, (progress - 0.02) / 0.15));
+    const framing = movement * movement * (3 - 2 * movement);
+    stage.style.setProperty('--story-progress', progress.toFixed(4));
+    stage.style.setProperty('--framing', framing.toFixed(4));
+    updatePhase(phases.find((phase) => progress >= phase.start));
+    reveals.forEach(([element, start]) => {
+      element.classList.toggle('is-revealed', progress >= start);
+    });
+  }
+
+  function requestStoryFrame() {
+    if (!animationFrame) animationFrame = window.requestAnimationFrame(drawStory);
+  }
+
+  function setStoryMode() {
+    const enhanced = pinning.matches && CSS.supports('height', '100svh');
+    story.classList.toggle('is-enhanced', enhanced);
+    if (enhanced) {
+      requestStoryFrame();
+      return;
+    }
+    activePhase = undefined;
+    delete stage.dataset.phase;
+    stage.style.removeProperty('--framing');
+    stage.style.removeProperty('--story-progress');
+    secondHeadline.hidden = false;
+    panels.forEach((panel) => { panel.inert = false; });
+  }
+
+  jumps.forEach((button) => {
+    button.addEventListener('click', () => {
+      const phase = phases.find((entry) => entry.scene === button.dataset.storyJump);
+      const start = story.getBoundingClientRect().top + window.scrollY;
+      const offset = phase.start === 0 ? 0 : 4;
+      window.scrollTo({ top: start + storyDistance() * phase.start + offset, behavior: 'smooth' });
+    });
+  });
+
+  window.addEventListener('scroll', requestStoryFrame, { passive: true });
+  window.addEventListener('resize', requestStoryFrame, { passive: true });
+  pinning.addEventListener('change', setStoryMode);
+  setStoryMode();
+}
 const subjectMenu = document.querySelector('[data-subject-menu]');
 
 if (subjectMenu) {
