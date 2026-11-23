@@ -1,116 +1,54 @@
-const story = document.querySelector('[data-story]');
+// Track the paragraph crossing the reading line. All of the article text stays in document order.
+const spreads = Array.from(document.querySelectorAll('[data-scroll-story]'));
 
-if (story) {
-  const stage = story.querySelector('[data-story-stage]');
-  const panels = Array.from(stage.querySelectorAll('[data-scene]'));
-  const jumps = Array.from(stage.querySelectorAll('[data-story-jump]'));
-  const headlineButtons = Array.from(stage.querySelectorAll('[data-headline]'));
-  const secondHeadline = stage.querySelector('[data-headline="b"]');
-  const photoHeadline = stage.querySelector('[data-photo-headline]');
-  const headlineStatus = stage.querySelector('[data-headline-status]');
-  const reveals = Array.from(stage.querySelectorAll('[data-reveal-at]'), (element) => [
-    element, Number(element.dataset.revealAt),
-  ]);
-  const pinning = window.matchMedia(
-    '(prefers-reduced-motion: no-preference) and (min-width: 761px) and (min-height: 37rem), ' +
-    '(prefers-reduced-motion: no-preference) and (max-width: 760px) and (min-height: 41rem)',
-  );
-  const phases = [
-    { name: 'teach', scene: 'teach', start: 0.79 },
-    { name: 'evidence', scene: 'evidence', start: 0.58 },
-    { name: 'title-b', scene: 'headlines', start: 0.39, headline: 'b' },
-    { name: 'title-a', scene: 'headlines', start: 0.17, headline: 'a' },
-    { name: 'opening', scene: 'opening', start: 0 },
-  ];
-  let activePhase;
-  let animationFrame = 0;
+if (spreads.length && 'IntersectionObserver' in window && CSS.supports('position', 'sticky')) {
+  const pinning = window.matchMedia('(prefers-reduced-motion: no-preference) and (min-height: 36rem)');
+  const refreshers = spreads.map((spread) => {
+    const steps = Array.from(spread.querySelectorAll('[data-step]'));
+    let observer;
 
-  function selectHeadline(button, announce = false) {
-    headlineButtons.forEach((choice) => {
-      choice.setAttribute('aria-pressed', String(choice === button));
-    });
-
-    const line = button.querySelector('span');
-    photoHeadline.replaceChildren(...Array.from(line.childNodes, (node) => node.cloneNode(true)));
-    if (announce) headlineStatus.textContent = button.textContent.trim().replace(/\s+/g, ' ');
-  }
-
-  headlineButtons.forEach((button) => {
-    button.addEventListener('click', () => selectHeadline(button, true));
-  });
-
-  function updatePhase(phase) {
-    if (activePhase === phase) return;
-    activePhase = phase;
-    stage.dataset.phase = phase.name;
-    secondHeadline.hidden = phase.name === 'title-a';
-    panels.forEach((panel) => {
-      const active = panel.dataset.scene === phase.scene;
-      panel.classList.toggle('is-current', active);
-      panel.inert = !active;
-    });
-    jumps.forEach((button) => {
-      if (button.dataset.storyJump === phase.scene) {
-        button.setAttribute('aria-current', 'step');
-      } else {
-        button.removeAttribute('aria-current');
+    return function observeSteps() {
+      observer?.disconnect();
+      if (!pinning.matches) {
+        delete spread.dataset.active;
+        return;
       }
-    });
-    if (phase.headline) selectHeadline(headlineButtons.find((button) => button.dataset.headline === phase.headline));
-  }
 
-  function storyDistance() {
-    return Math.max(1, story.offsetHeight - stage.offsetHeight);
-  }
+      const height = document.documentElement.clientHeight;
+      const fraction = Number(getComputedStyle(spread).getPropertyValue('--reading-line'));
+      const line = Math.round(height * fraction);
 
-  function drawStory() {
-    animationFrame = 0;
-    if (!story.classList.contains('is-enhanced')) return;
+      function syncStep() {
+        let current = steps[0];
+        for (const step of steps) {
+          if (step.firstElementChild.getBoundingClientRect().top > line) break;
+          current = step;
+        }
+        spread.dataset.active = current.dataset.step;
+      }
 
-    const progress = Math.min(1, Math.max(0, -story.getBoundingClientRect().top / storyDistance()));
-    const movement = Math.min(1, Math.max(0, (progress - 0.02) / 0.15));
-    const framing = movement * movement * (3 - 2 * movement);
-    stage.style.setProperty('--story-progress', progress.toFixed(4));
-    stage.style.setProperty('--framing', framing.toFixed(4));
-    updatePhase(phases.find((phase) => progress >= phase.start));
-    reveals.forEach(([element, start]) => {
-      element.classList.toggle('is-revealed', progress >= start);
-    });
-  }
-
-  function requestStoryFrame() {
-    if (!animationFrame) animationFrame = window.requestAnimationFrame(drawStory);
-  }
-
-  function setStoryMode() {
-    const enhanced = pinning.matches && CSS.supports('height', '100svh');
-    story.classList.toggle('is-enhanced', enhanced);
-    if (enhanced) {
-      requestStoryFrame();
-      return;
-    }
-    activePhase = undefined;
-    delete stage.dataset.phase;
-    stage.style.removeProperty('--framing');
-    stage.style.removeProperty('--story-progress');
-    secondHeadline.hidden = false;
-    panels.forEach((panel) => { panel.inert = false; });
-  }
-
-  jumps.forEach((button) => {
-    button.addEventListener('click', () => {
-      const phase = phases.find((entry) => entry.scene === button.dataset.storyJump);
-      const start = story.getBoundingClientRect().top + window.scrollY;
-      const offset = phase.start === 0 ? 0 : 4;
-      window.scrollTo({ top: start + storyDistance() * phase.start + offset, behavior: 'smooth' });
-    });
+      // Watch both the text and its surrounding step so a large scroll can skip whole paragraphs.
+      observer = new IntersectionObserver(syncStep, {
+        rootMargin: `0px 0px -${height - line}px 0px`,
+      });
+      steps.forEach((step) => {
+        observer.observe(step);
+        observer.observe(step.firstElementChild);
+      });
+      syncStep();
+    };
   });
 
-  window.addEventListener('scroll', requestStoryFrame, { passive: true });
-  window.addEventListener('resize', requestStoryFrame, { passive: true });
-  pinning.addEventListener('change', setStoryMode);
-  setStoryMode();
+  function refreshStories() {
+    refreshers.forEach((refresh) => refresh());
+  }
+
+  window.addEventListener('resize', refreshStories);
+  window.addEventListener('pageshow', refreshStories);
+  pinning.addEventListener('change', refreshStories);
+  refreshStories();
 }
+
 const subjectMenu = document.querySelector('[data-subject-menu]');
 
 if (subjectMenu) {

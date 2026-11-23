@@ -3,215 +3,239 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#11262c">
+  <meta name="theme-color" content="#152925">
   <meta name="description" content="과학·보건·사회·미술·역사·영어 6개 교과의 디지털 미디어 리터러시 수업 12편.">
   <title>슬기로운 디지털 문해생활</title>
   <link rel="stylesheet" href="assets/style.css">
-  <link rel="stylesheet" href="assets/story.css">
+  <link rel="stylesheet" href="assets/story.css?v=2">
   <link rel="preload" as="image" href="assets/hero.webp">
-  <script src="assets/site.js" defer></script>
+  <link rel="preload" as="font" href="assets/fonts/myeongjo.woff" type="font/woff" crossorigin>
+  <script src="assets/site.js?v=2" defer></script>
 </head>
-<body>
+<body class="webzine">
 <a class="skip-link" href="#subjects">교과별 수업으로 이동</a>
-<div class="home-story" data-story>
-  <div class="story-stage" data-story-stage>
-    <header class="site-header">
-      <div class="shell header-row">
-        <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true"></span>디지털 미디어 리터러시 교육 지원 자료</a>
-        <nav class="header-links" aria-label="주 메뉴">
-          <a href="#subjects">교과별 수업</a>
-          <a class="pdf-button" href="https://drive.google.com/file/d/1oHFbGTHitLCZoC8ndZX6Gexwn5Ip-Q_L/view?usp=drivesdk" target="_blank" rel="noopener noreferrer">원문 PDF 보기</a>
-        </nav>
-      </div>
-    </header>
-    <figure class="story-photo">
-      <img src="assets/hero.webp" width="1536" height="1024"
-           alt="도심 광장에 모여 팻말을 든 사람들과 주변을 지나는 보행자" fetchpriority="high">
-      <figcaption>수업용 예시 · AI 생성 이미지</figcaption>
-      <div class="photo-headline" aria-hidden="true" data-photo-headline></div>
-      <div class="photo-evidence" aria-hidden="true">
-        <span class="photo-point photo-point--group"><span>팻말을 든 사람들</span></span>
-        <span class="photo-point photo-point--walker" data-reveal-at="0.67"><span>지나가는 보행자</span></span>
-      </div>
-    </figure>
-    <div class="shell story-panels">
-      <section class="story-panel story-opening" data-scene="opening" aria-labelledby="story-title">
-        <div class="story-copy">
-          <h1 class="hero-title" id="story-title"><span>슬기로운</span> 디지털 문해생활</h1>
-          <p class="hero-question">같은 장면은 왜 다르게 보일까요?</p>
-          <p class="hero-lead">정보의 출처와 근거를 살피고, 여러 관점을 비교하며 책임 있게 표현하는 힘을 기릅니다.</p>
-          <a class="primary-button" href="#subjects">교과별 수업 보기</a>
-        </div>
-      </section>
-      <section class="story-panel story-headlines" data-scene="headlines" aria-labelledby="headlines-title">
-        <div class="story-copy">
-          <h2 id="headlines-title">같은 사진,<br> 두 개의 제목</h2>
-          <p class="story-lead">제목에 쓰인 말이 사진의 분위기를 어떻게 바꾸는지 살펴보세요.</p>
-          <div class="headline-choices" role="group" aria-label="사진에 붙일 제목">
-            <button class="headline-choice" type="button" data-headline="a" aria-pressed="true">
-              <small>제목 A</small><span>시민들이 도심에 <strong>평화롭게</strong> 모였다</span>
-            </button>
-            <button class="headline-choice" type="button" data-headline="b" aria-pressed="false">
-              <small>제목 B</small><span>시민들이 도심에 <strong>혼란을</strong> 일으켰다</span>
-            </button>
-          </div>
-          <p class="headline-next">스크롤을 더 내리면 제목 B가 나타납니다.</p>
-          <p class="visually-hidden" aria-live="polite" data-headline-status></p>
-        </div>
-      </section>
-      <section class="story-panel story-evidence" data-scene="evidence" aria-labelledby="evidence-title">
-        <div class="story-copy">
-          <h2 id="evidence-title">사진에서 어디까지<br> 확인할 수 있을까요?</h2>
-          <dl class="evidence-notes">
-            <div>
-              <dt>사진에서 보이는 것</dt>
-              <dd>팻말을 든 사람들이 모여 있고, 그 주변을 보행자가 지나갑니다.</dd>
-            </div>
-            <div data-reveal-at="0.67">
-              <dt>더 확인할 것</dt>
-              <dd>실제 기사라면 언제 어디에서 누가 촬영했는지, 당시 통행에 어떤 영향이 있었는지 확인합니다.</dd>
-            </div>
-          </dl>
-        </div>
-      </section>
-      <section class="story-panel story-teach" data-scene="teach" aria-labelledby="teach-title">
-        <div class="story-copy">
-          <h2 id="teach-title">교실에서 기르는<br> 디지털 문해력</h2>
-          <p class="story-lead">사진을 읽을 때 던진 질문을 과학부터 영어까지, 여섯 교과 수업에서 이어갑니다.</p>
-          <a class="primary-button" href="#subjects">교과별 수업 보기</a>
-        </div>
-        <dl class="story-takeaways">
-          <div><dt>출처를 묻기</dt><dd>누가 어떤 맥락에서 만들었을까요?</dd></div>
-          <div data-reveal-at="0.85"><dt>근거로 판단하기</dt><dd>무엇을 확인했고 무엇을 더 알아봐야 할까요?</dd></div>
-          <div data-reveal-at="0.91"><dt>책임 있게 표현하기</dt><dd>내가 제목을 붙인다면 어떤 말과 근거를 쓸까요?</dd></div>
-        </dl>
-      </section>
-    </div>
-    <div class="shell story-controls">
-      <div class="story-progress" aria-hidden="true"><span></span></div>
-      <div class="story-control-row">
-        <span class="story-scroll-label">스크롤로 읽기</span>
-        <nav class="story-steps" aria-label="첫 화면 장면 이동">
-          <button type="button" data-story-jump="opening">사진</button>
-          <button type="button" data-story-jump="headlines">제목</button>
-          <button type="button" data-story-jump="evidence">근거</button>
-          <button type="button" data-story-jump="teach">수업</button>
-        </nav>
-      </div>
+<header class="cover" aria-labelledby="cover-title">
+  <img class="cover-image" src="assets/hero.webp" width="1536" height="1024"
+       alt="도심 광장에 팻말을 든 사람들이 모여 있고, 그 곁을 보행자가 지나간다." fetchpriority="high">
+  <div class="cover-shade" aria-hidden="true"></div>
+  <div class="cover-veil" aria-hidden="true"></div>
+  <div class="site-header">
+    <div class="shell header-row">
+      <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true"></span>디지털 미디어 리터러시 교육 지원 자료</a>
+      <nav class="header-links" aria-label="주 메뉴">
+      <a href="#subjects">교과별 수업 보기</a>
+        <a class="pdf-button" href="https://drive.google.com/file/d/1oHFbGTHitLCZoC8ndZX6Gexwn5Ip-Q_L/view?usp=drivesdk" target="_blank" rel="noopener noreferrer">원문 PDF 보기</a>
+      </nav>
     </div>
   </div>
-</div>
-<main class="shell school-index" id="subjects">
-  <h2 class="subject-label">교과별 수업</h2>
-  <nav class="subject-menu" aria-label="교과 선택" data-subject-menu>
+  <div class="shell cover-copy">
+    <h1 class="display" id="cover-title"><span>슬기로운</span> 디지털 문해생활</h1>
+    <p>같은 장면은 왜 다르게 보일까요?</p>
+  </div>
+  <div class="shell cover-foot">
+    <a href="#opening" class="begin-reading"><span aria-hidden="true">↓</span> 스크롤로 읽기</a>
+    <small>수업용 예시 · AI 생성 이미지</small>
+  </div>
+</header>
+
+<main>
+  <article aria-labelledby="cover-title">
+    <section class="photo-chapter" aria-labelledby="photo-title">
+      <div class="reading-column chapter-intro" id="opening">
+        <a class="lesson-ref" href="lessons/english-11.html">영어 11 · 같은 사건, 다른 시선<span aria-hidden="true"> ↗</span></a>
+        <p>도심 광장에 팻말을 든 사람들이 모여 있습니다. 그 곁을 보행자가 지나갑니다.</p>
+        <h2 class="display" id="photo-title">이 장면을 기사로 전한다면,<br>어떤 제목을 붙이시겠어요?</h2>
+      </div>
+      <div class="shell story-spread photo-spread" data-scroll-story>
+        <figure class="story-visual photo-plate">
+          <div class="photo-frame">
+            <img src="assets/hero.webp" width="1536" height="1024"
+                 alt="광장 가운데 사람들이 빈 팻말을 들고 서 있다. 오른쪽에는 횡단보도를 지나는 사람이 보인다.">
+            <div class="photo-marks" aria-hidden="true">
+              <span class="photo-mark placard"><span>팻말을 든 사람들</span></span>
+              <span class="photo-mark passerby"><span>지나가는 보행자</span></span>
+            </div>
+          </div>
+          <div class="caption-pair" aria-hidden="true">
+            <div class="caption-a"><b>제목 A</b><span>시민들이 도심에 <em>평화롭게</em> 모였다</span></div>
+            <div class="caption-b"><b>제목 B</b><span>시민들이 도심에 <em>혼란을</em> 일으켰다</span></div>
+          </div>
+          <figcaption>수업용 예시 · AI 생성 이미지</figcaption>
+        </figure>
+        <div class="story-text">
+          <div class="story-step" data-step="title-a">
+            <p class="step-label">제목 A</p>
+            <blockquote class="display">시민들이 도심에 <em>평화롭게</em> 모였다</blockquote>
+            <p>‘평화롭게’라는 말에 눈길이 갑니다. 사람들이 어떤 분위기에서 모였을지 상상하게 됩니다.</p>
+          </div>
+          <div class="story-step" data-step="title-b">
+            <p class="step-label">제목 B</p>
+            <blockquote class="display">시민들이 도심에 <em>혼란을</em> 일으켰다</blockquote>
+            <p>‘혼란을’이라는 말은 모임이 주변에 미친 영향을 떠올리게 합니다. 같은 보행자의 모습도 다르게 읽힐 수 있습니다.</p>
+          </div>
+          <div class="story-step" data-step="evidence">
+            <h3 class="display">사진에서 직접 확인할 수 있는 건 어디까지일까요?</h3>
+            <p>사람들이 팻말을 들고 있습니다. 그 옆으로는 보행자가 지나갑니다. 이 한 장면으로 당시의 통행 상황까지 알 수 있을까요?</p>
+          </div>
+        </div>
+      </div>
+      <div class="reading-column bridge">
+        <p>실제 기사라면 촬영 시각과 장소, 앞뒤 장면이나 현장 기록을 확인해 당시 통행 상황을 살펴봅니다.</p>
+        <p>사진에 붙은 단어에서 한 걸음 물러서니 확인할 것이 보입니다. 이번에는 전기차를 다룬 두 기사의 숫자를 읽어봅니다.</p>
+      </div>
+    </section>
+
+    <section class="science-chapter" aria-labelledby="scope-title">
+      <div class="reading-column chapter-intro">
+        <a class="lesson-ref" href="lessons/science-01.html">과학 01 · 보이는 친환경, 숨겨진 진실<span aria-hidden="true"> ↗</span></a>
+        <h2 class="display" id="scope-title">두 기사는 어디서부터<br>어디까지 셌을까요?</h2>
+        <p>두 기사 모두 전기차와 내연기관차의 탄소 배출량을 비교합니다. 수치를 읽을 때 각 기사가 어떤 과정을 계산에 넣었는지 따라가 보세요.</p>
+      </div>
+      <div class="shell story-spread scope-spread" data-scroll-story>
+        <figure class="story-visual scope-plate">
+          <figcaption>기사 제목이 비교한 범위</figcaption>
+          <div class="scope-chart" role="img" aria-label="기사 A는 제조, 운행, 사용 후 처리를 아우르는 생애 전체를 비교하고, 기사 B는 제조 과정만 비교합니다.">
+            <div class="stage-track" aria-hidden="true">
+              <span>제조</span><span>운행</span><span>사용 후 처리</span>
+            </div>
+            <div class="scope-range whole-life" aria-hidden="true"><span>기사 A · 생애 전체</span></div>
+            <div class="scope-range manufacturing" aria-hidden="true"><span>기사 B · 제조 과정</span></div>
+          </div>
+          <p class="scope-source">두 기사 제목을 바탕으로 생애주기를 세 단계로 묶었습니다. <a href="https://drive.google.com/file/d/1oHFbGTHitLCZoC8ndZX6Gexwn5Ip-Q_L/view?usp=drivesdk#page=12" target="_blank" rel="noopener noreferrer">원문 12쪽 보기<span aria-hidden="true"> ↗</span></a></p>
+        </figure>
+        <div class="story-text">
+          <div class="story-step" data-step="life">
+            <p class="step-label">기사 A · 생애 전체</p>
+            <blockquote><span class="claim-number display">70<small>%</small></span> <span class="claim-change">이상 적다</span></blockquote>
+            <p>첫 번째 기사는 전기차의 <strong>생애 탄소 배출량</strong>이 내연기관차보다 70% 이상 적다고 말합니다. 제조부터 운행을 거쳐 사용 후 처리까지 살피는 관점입니다.</p>
+          </div>
+          <div class="story-step" data-step="manufacture">
+            <p class="step-label">기사 B · 제조 과정</p>
+            <blockquote><span class="claim-number display">40<small>%</small></span> <span class="claim-change">많다</span></blockquote>
+            <p>두 번째 기사의 제목은 전기차 <strong>제조 과정의 탄소 배출량</strong>이 내연기관차보다 40% 많다고 말합니다. 비교 범위를 제조 단계로 좁히면 두 숫자가 서로 다른 질문에 답하고 있음을 알 수 있습니다.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="reading-column classroom" aria-labelledby="classroom-title">
+      <h2 class="display" id="classroom-title">이 질문을 교실로<br>가져가 보세요.</h2>
+      <p>과학에서는 배출량을 계산해 기사의 주장을 검토합니다. 영어에서는 같은 사진에 붙은 제목이 독자의 인상을 어떻게 바꾸는지 살펴봅니다.</p>
+      <p>학생이 직접 제목을 쓴다면 어떤 단어를 고르고, 그 선택을 어떤 근거로 설명할까요? 여섯 교과에서 수업을 골라보세요.</p>
+    </section>
+  </article>
+  <section class="shell school-index" id="subjects" aria-labelledby="subjects-title">
+    <h2 class="subject-label" id="subjects-title">교과별 수업</h2>
+    <nav class="subject-menu" aria-label="교과 선택" data-subject-menu>
       <a href="#science" data-subject="science" aria-controls="science">과학</a>
       <a href="#health" data-subject="health" aria-controls="health">보건</a>
       <a href="#social" data-subject="social" aria-controls="social">사회</a>
       <a href="#art" data-subject="art" aria-controls="art">미술</a>
       <a href="#history" data-subject="history" aria-controls="history">역사</a>
       <a href="#english" data-subject="english" aria-controls="english">영어</a>
-  </nav>
-  <section class="course" id="science" aria-labelledby="science-title" data-subject-panel>
-    <p class="course-kicker">과학 · 중학교 1~2학년</p>
-    <h3 id="science-title">디지털 미디어 속 과학 읽기</h3>
-    <p class="course-description">뉴스의 주장과 표현을 비교하고, 과학적 증거와 데이터로 판단합니다.</p>
-    <div class="project-grid">
-      <a class="project-card" href="lessons/science-01.html">
-        <span class="lesson-code">과학 01</span>
-        <strong>보이는 친환경, 숨겨진 진실</strong>
-        <p>전기차 기사 두 편을 비교하고, 차량별 배출량을 계산해 주장을 검토합니다.</p>
-      </a>
-      <a class="project-card" href="lessons/science-02.html">
-        <span class="lesson-code">과학 02</span>
-        <strong>AI 시대의 대륙 이동설</strong>
-        <p>베게너의 증거와 당시의 정보 환경을 살펴보고, 디지털 정보의 판단 기준을 세웁니다.</p>
-      </a>
-    </div>
-  </section>
-  <section class="course" id="health" aria-labelledby="health-title" data-subject-panel>
-    <p class="course-kicker">보건 · 중학교 2학년</p>
-    <h3 id="health-title">건강 정보, 믿어도 될까</h3>
-    <p class="course-description">건강·약물 정보의 신뢰성과 AI 이미지에 반영된 고정관념을 살펴봅니다.</p>
-    <div class="project-grid">
-      <a class="project-card" href="lessons/health-03.html">
-        <span class="lesson-code">보건 03</span>
-        <strong>AI 시대, 약물 정보를 읽는 힘을 기르다</strong>
-        <p>AI 답변과 광고의 근거를 공공기관 자료와 대조하고, 건강정보를 검증하는 콘텐츠를 만듭니다.</p>
-      </a>
-      <a class="project-card" href="lessons/health-04.html">
-        <span class="lesson-code">보건 04</span>
-        <strong>AI가 보여주는 ‘나다움’은 진짜일까?</strong>
-        <p>AI의 인물 이미지에서 반복되는 표현을 찾고, 다양성을 반영해 프롬프트를 고칩니다.</p>
-      </a>
-    </div>
-  </section>
-  <section class="course" id="social" aria-labelledby="social-title" data-subject-panel>
-    <p class="course-kicker">사회 · 중학교 2~3학년</p>
-    <h3 id="social-title">미디어가 만드는 여론</h3>
-    <p class="course-description">지역에 대한 표현이 퍼지는 방식과 추천 화면이 정보를 고르는 방식을 탐구합니다.</p>
-    <div class="project-grid">
-      <a class="project-card" href="lessons/social-05.html">
-        <span class="lesson-code">사회 05</span>
-        <strong>우리 지역, 우리의 언어</strong>
-        <p>지역 혐오 표현의 배경을 탐구하고, 존중하는 언어로 바꿔 쓰며 캠페인을 기획합니다.</p>
-      </a>
-      <a class="project-card" href="lessons/social-06.html">
-        <span class="lesson-code">사회 06</span>
-        <strong>알고리즘의 감옥</strong>
-        <p>추천 콘텐츠가 어떻게 변하는지 관찰하고, 미디어 소비 습관을 기록해 성찰합니다.</p>
-      </a>
-    </div>
-  </section>
-  <section class="course" id="art" aria-labelledby="art-title" data-subject-panel>
-    <p class="course-kicker">미술 · 중학교 1~3학년</p>
-    <h3 id="art-title">이미지의 진실과 거짓</h3>
-    <p class="course-description">AI 이미지와 추천 화면을 시각 언어로 읽고, 새로운 이미지와 데이터 자화상을 만듭니다.</p>
-    <div class="project-grid">
-      <a class="project-card" href="lessons/art-07.html">
-        <span class="lesson-code">미술 07</span>
-        <strong>AI는 왜 비슷한 이미지를 만들까?</strong>
-        <p>여러 AI 이미지의 색·구도·상징을 비교하고, 다른 관점으로 미래 학교를 표현합니다.</p>
-      </a>
-      <a class="project-card" href="lessons/art-08.html">
-        <span class="lesson-code">미술 08</span>
-        <strong>보이는 나, 기록되는 나</strong>
-        <p>검색·시청·반응이 남기는 흔적을 살피고, 색과 형태로 데이터 자화상을 만듭니다.</p>
-      </a>
-    </div>
-  </section>
-  <section class="course" id="history" aria-labelledby="history-title" data-subject-panel>
-    <p class="course-kicker">역사 · 중학교 3학년~고등학교 1학년</p>
-    <h3 id="history-title">과거를 둘러싼 디지털 기록</h3>
-    <p class="course-description">역사 기사와 이미지의 출처·맥락을 살피고, 근거를 갖춰 바로잡거나 해설합니다.</p>
-    <div class="project-grid">
-      <a class="project-card" href="lessons/history-09.html">
-        <span class="lesson-code">역사 09</span>
-        <strong>역사 속 가짜 뉴스 바로잡기</strong>
-        <p>4·19 혁명과 5·18 민주화운동 관련 보도를 사료와 대조하고 정정 콘텐츠를 만듭니다.</p>
-      </a>
-      <a class="project-card" href="lessons/history-10.html">
-        <span class="lesson-code">역사 10</span>
-        <strong>디지털 역사 이미지 바로 읽기</strong>
-        <p>피난민 사진, 새마을운동 포스터, 5·18 이미지를 비교해 출처가 담긴 해설을 씁니다.</p>
-      </a>
-    </div>
-  </section>
-  <section class="course" id="english" aria-labelledby="english-title" data-subject-panel>
-    <p class="course-kicker">영어 · 중학교 3학년~고등학교 1학년</p>
-    <h3 id="english-title">영어로 읽는 디지털 세상</h3>
-    <p class="course-description">영어 뉴스의 관점을 비교하고, 온라인에서 이견을 존중하며 표현하는 연습을 합니다.</p>
-    <div class="project-grid">
-      <a class="project-card" href="lessons/english-11.html">
-        <span class="lesson-code">영어 11</span>
-        <strong>같은 사건, 다른 시선</strong>
-        <p>같은 사진에 붙은 두 제목을 읽고, 스마트폰 사용을 다룬 영어 기사의 관점을 비교합니다.</p>
-      </a>
-      <a class="project-card" href="lessons/english-12.html">
-        <span class="lesson-code">영어 12</span>
-        <strong>온라인 소통과 디지털 예절</strong>
-        <p>영어 댓글을 존중의 표현으로 고쳐 쓰고, 온라인 토론방 역할극에서 연습합니다.</p>
-      </a>
-    </div>
+    </nav>
+    <section class="course" id="science" aria-labelledby="science-title" data-subject-panel>
+      <p class="course-kicker">과학 · 중학교 1~2학년</p>
+      <h3 id="science-title">디지털 미디어 속 과학 읽기</h3>
+      <p class="course-description">뉴스의 주장과 표현을 비교하고, 과학적 증거와 데이터로 판단합니다.</p>
+      <div class="project-grid">
+        <a class="project-card" href="lessons/science-01.html">
+          <span class="lesson-code">과학 01</span>
+          <strong>보이는 친환경, 숨겨진 진실</strong>
+          <p>전기차 기사 두 편을 비교하고, 차량별 배출량을 계산해 주장을 검토합니다.</p>
+        </a>
+        <a class="project-card" href="lessons/science-02.html">
+          <span class="lesson-code">과학 02</span>
+          <strong>AI 시대의 대륙 이동설</strong>
+          <p>베게너의 증거와 당시의 정보 환경을 살펴보고, 디지털 정보의 판단 기준을 세웁니다.</p>
+        </a>
+      </div>
+    </section>
+    <section class="course" id="health" aria-labelledby="health-title" data-subject-panel>
+      <p class="course-kicker">보건 · 중학교 2학년</p>
+      <h3 id="health-title">건강 정보, 믿어도 될까</h3>
+      <p class="course-description">건강·약물 정보의 신뢰성과 AI 이미지에 반영된 고정관념을 살펴봅니다.</p>
+      <div class="project-grid">
+        <a class="project-card" href="lessons/health-03.html">
+          <span class="lesson-code">보건 03</span>
+          <strong>AI 시대, 약물 정보를 읽는 힘을 기르다</strong>
+          <p>AI 답변과 광고의 근거를 공공기관 자료와 대조하고, 건강정보를 검증하는 콘텐츠를 만듭니다.</p>
+        </a>
+        <a class="project-card" href="lessons/health-04.html">
+          <span class="lesson-code">보건 04</span>
+          <strong>AI가 보여주는 ‘나다움’은 진짜일까?</strong>
+          <p>AI의 인물 이미지에서 반복되는 표현을 찾고, 다양성을 반영해 프롬프트를 고칩니다.</p>
+        </a>
+      </div>
+    </section>
+    <section class="course" id="social" aria-labelledby="social-title" data-subject-panel>
+      <p class="course-kicker">사회 · 중학교 2~3학년</p>
+      <h3 id="social-title">미디어가 만드는 여론</h3>
+      <p class="course-description">지역에 대한 표현이 퍼지는 방식과 추천 화면이 정보를 고르는 방식을 탐구합니다.</p>
+      <div class="project-grid">
+        <a class="project-card" href="lessons/social-05.html">
+          <span class="lesson-code">사회 05</span>
+          <strong>우리 지역, 우리의 언어</strong>
+          <p>지역 혐오 표현의 배경을 탐구하고, 존중하는 언어로 바꿔 쓰며 캠페인을 기획합니다.</p>
+        </a>
+        <a class="project-card" href="lessons/social-06.html">
+          <span class="lesson-code">사회 06</span>
+          <strong>알고리즘의 감옥</strong>
+          <p>추천 콘텐츠가 어떻게 변하는지 관찰하고, 미디어 소비 습관을 기록해 성찰합니다.</p>
+        </a>
+      </div>
+    </section>
+    <section class="course" id="art" aria-labelledby="art-title" data-subject-panel>
+      <p class="course-kicker">미술 · 중학교 1~3학년</p>
+      <h3 id="art-title">이미지의 진실과 거짓</h3>
+      <p class="course-description">AI 이미지와 추천 화면을 시각 언어로 읽고, 새로운 이미지와 데이터 자화상을 만듭니다.</p>
+      <div class="project-grid">
+        <a class="project-card" href="lessons/art-07.html">
+          <span class="lesson-code">미술 07</span>
+          <strong>AI는 왜 비슷한 이미지를 만들까?</strong>
+          <p>여러 AI 이미지의 색·구도·상징을 비교하고, 다른 관점으로 미래 학교를 표현합니다.</p>
+        </a>
+        <a class="project-card" href="lessons/art-08.html">
+          <span class="lesson-code">미술 08</span>
+          <strong>보이는 나, 기록되는 나</strong>
+          <p>검색·시청·반응이 남기는 흔적을 살피고, 색과 형태로 데이터 자화상을 만듭니다.</p>
+        </a>
+      </div>
+    </section>
+    <section class="course" id="history" aria-labelledby="history-title" data-subject-panel>
+      <p class="course-kicker">역사 · 중학교 3학년~고등학교 1학년</p>
+      <h3 id="history-title">과거를 둘러싼 디지털 기록</h3>
+      <p class="course-description">역사 기사와 이미지의 출처·맥락을 살피고, 근거를 갖춰 바로잡거나 해설합니다.</p>
+      <div class="project-grid">
+        <a class="project-card" href="lessons/history-09.html">
+          <span class="lesson-code">역사 09</span>
+          <strong>역사 속 가짜 뉴스 바로잡기</strong>
+          <p>4·19 혁명과 5·18 민주화운동 관련 보도를 사료와 대조하고 정정 콘텐츠를 만듭니다.</p>
+        </a>
+        <a class="project-card" href="lessons/history-10.html">
+          <span class="lesson-code">역사 10</span>
+          <strong>디지털 역사 이미지 바로 읽기</strong>
+          <p>피난민 사진, 새마을운동 포스터, 5·18 이미지를 비교해 출처가 담긴 해설을 씁니다.</p>
+        </a>
+      </div>
+    </section>
+    <section class="course" id="english" aria-labelledby="english-title" data-subject-panel>
+      <p class="course-kicker">영어 · 중학교 3학년~고등학교 1학년</p>
+      <h3 id="english-title">영어로 읽는 디지털 세상</h3>
+      <p class="course-description">영어 뉴스의 관점을 비교하고, 온라인에서 이견을 존중하며 표현하는 연습을 합니다.</p>
+      <div class="project-grid">
+        <a class="project-card" href="lessons/english-11.html">
+          <span class="lesson-code">영어 11</span>
+          <strong>같은 사건, 다른 시선</strong>
+          <p>같은 사진에 붙은 두 제목을 읽고, 스마트폰 사용을 다룬 영어 기사의 관점을 비교합니다.</p>
+        </a>
+        <a class="project-card" href="lessons/english-12.html">
+          <span class="lesson-code">영어 12</span>
+          <strong>온라인 소통과 디지털 예절</strong>
+          <p>영어 댓글을 존중의 표현으로 고쳐 쓰고, 온라인 토론방 역할극에서 연습합니다.</p>
+        </a>
+      </div>
+    </section>
   </section>
 </main>
 <footer class="site-footer">
