@@ -1,0 +1,30 @@
+.lesson-search { max-width: 42rem; margin: 0 0 1.05rem; }
+.lesson-search label { display: block; margin-bottom: 0.28rem; color: var(--muted); font-size: 0.9rem; font-weight: 700; }
+.search-field { display: flex; gap: 0.5rem; }
+.search-field input, .search-field button {
+  min-height: 2.95rem;
+  border: 1px solid #8f9b8a;
+  border-radius: 4px;
+  font: inherit;
+}
+.search-field input { min-width: 0; flex: 1; padding: 0.5rem 0.77rem; background: var(--white); color: var(--ink); }
+.search-field input::placeholder { color: #58685c; }
+.search-field button { flex: none; padding: 0.38rem 1rem; background: var(--green); color: var(--white); font-weight: 700; }
+.search-field button:hover { background: #193b32; }
+.search-status:not(:empty) { margin-top: 0.58rem; color: var(--muted); font-size: 0.9rem; }
+.search-results, .search-locations { margin: 0; padding: 0; list-style: none; }
+.search-results { max-width: 60rem; margin: 0 0 1.6rem; }
+.search-results > li { padding: 1rem 1.15rem; border: 1px solid var(--line); border-radius: 4px; background: var(--white); }
+.search-results > li + li { margin-top: 0.58rem; }
+.search-result-meta { color: var(--muted); font-size: 0.86rem; font-weight: 700; }
+.search-results h3 { margin-top: 0.12rem; font-size: clamp(1.06rem, 2vw, 1.32rem); line-height: 1.4; }
+.search-locations { margin-top: 0.65rem; }
+.search-locations li { display: grid; grid-template-columns: minmax(6.5rem, max-content) 1fr; gap: 0 0.85rem; align-items: baseline; border-top: 1px solid #e4e8df; padding-top: 0.32rem; }
+.search-locations li + li { margin-top: 0.46rem; }
+.search-location { color: var(--green); font-size: 0.86rem; font-weight: 700; }
+.search-locations p { color: var(--ink); font-size: 0.94rem; }
+.search-locations mark { padding: 0 0.09em; background: #f5e2a9; color: #2c3a2b; }
+@media (max-width: 40rem) {
+  .search-results > li { padding: 0.7rem 0.83rem; }
+  .search-locations li { display: block; }
+}

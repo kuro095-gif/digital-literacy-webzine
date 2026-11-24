@@ -1,52 +1,66 @@
-// Track the paragraph crossing the reading line. All of the article text stays in document order.
-const spreads = Array.from(document.querySelectorAll('[data-scroll-story]'));
+const cover = document.querySelector('.cover');
 
-if (spreads.length && 'IntersectionObserver' in window && CSS.supports('position', 'sticky')) {
-  const pinning = window.matchMedia('(prefers-reduced-motion: no-preference) and (min-height: 36rem)');
-  const refreshers = spreads.map((spread) => {
-    const steps = Array.from(spread.querySelectorAll('[data-step]'));
-    let observer;
+if (cover) {
+  const stacked = window.matchMedia('(max-width: 51.99rem)');
+  const canPin = CSS.supports('position', 'sticky');
+  const spreads = Array.from(document.querySelectorAll('[data-scroll-story]'), (spread) => ({
+    spread,
+    visual: spread.querySelector('.story-visual'),
+    headings: Array.from(spread.querySelectorAll('[data-step]'), (step) => step.firstElementChild),
+  }));
+  let frame = 0;
+  let coverProgress = 0;
 
-    return function observeSteps() {
-      observer?.disconnect();
-      if (!pinning.matches) {
-        delete spread.dataset.active;
-        return;
+  function updateStory() {
+    frame = 0;
+    const height = document.documentElement.clientHeight;
+    const coverTop = cover.getBoundingClientRect().top;
+    const travel = Math.max(1, Math.min(300, height * 0.44));
+    const progress = Math.max(0, Math.min(1, -coverTop / travel));
+    const activeSteps = spreads.map(({ spread, visual, headings }) => {
+      const inset = stacked.matches && spread.hasAttribute('data-pinned')
+        ? Math.max(0, Math.min(height, visual.getBoundingClientRect().bottom))
+        : 0;
+      const readingLine = inset + (height - inset) * 0.54;
+      let current = headings[0];
+      for (const heading of headings) {
+        if (heading.getBoundingClientRect().top > readingLine) break;
+        current = heading;
       }
+      return current.parentElement.dataset.step;
+    });
 
-      const height = document.documentElement.clientHeight;
-      const fraction = Number(getComputedStyle(spread).getPropertyValue('--reading-line'));
-      const line = Math.round(height * fraction);
-
-      function syncStep() {
-        let current = steps[0];
-        for (const step of steps) {
-          if (step.firstElementChild.getBoundingClientRect().top > line) break;
-          current = step;
-        }
-        spread.dataset.active = current.dataset.step;
-      }
-
-      // Watch both the text and its surrounding step so a large scroll can skip whole paragraphs.
-      observer = new IntersectionObserver(syncStep, {
-        rootMargin: `0px 0px -${height - line}px 0px`,
-      });
-      steps.forEach((step) => {
-        observer.observe(step);
-        observer.observe(step.firstElementChild);
-      });
-      syncStep();
-    };
-  });
-
-  function refreshStories() {
-    refreshers.forEach((refresh) => refresh());
+    if (progress !== coverProgress) {
+      cover.style.setProperty('--cover-progress', progress.toFixed(4));
+      coverProgress = progress;
+    }
+    spreads.forEach(({ spread }, index) => {
+      if (spread.dataset.active !== activeSteps[index]) spread.dataset.active = activeSteps[index];
+    });
   }
 
-  window.addEventListener('resize', refreshStories);
-  window.addEventListener('pageshow', refreshStories);
-  pinning.addEventListener('change', refreshStories);
-  refreshStories();
+  function queueStoryUpdate() {
+    if (!frame) frame = window.requestAnimationFrame(updateStory);
+  }
+
+  function fitStoryVisuals() {
+    const height = document.documentElement.clientHeight;
+    const maxVisualHeight = stacked.matches ? height - 112 : height * 0.87;
+    const fits = spreads.map(({ visual }) => canPin && visual.offsetHeight <= maxVisualHeight);
+    // Pinning is optional. The reading position still updates every scene.
+    spreads.forEach(({ spread }, index) => spread.toggleAttribute('data-pinned', fits[index]));
+    queueStoryUpdate();
+  }
+
+  spreads.forEach(({ spread }) => spread.setAttribute('data-enhanced', ''));
+  if ('ResizeObserver' in window) {
+    const visualSizes = new ResizeObserver(fitStoryVisuals);
+    spreads.forEach(({ visual }) => visualSizes.observe(visual));
+  }
+  window.addEventListener('scroll', queueStoryUpdate, { passive: true });
+  window.addEventListener('resize', fitStoryVisuals);
+  window.addEventListener('pageshow', fitStoryVisuals);
+  fitStoryVisuals();
 }
 
 const subjectMenu = document.querySelector('[data-subject-menu]');
@@ -85,4 +99,14 @@ if (subjectMenu) {
 
   window.addEventListener('hashchange', showFromHash);
   showFromHash();
+}
+
+if (document.querySelector('.reading-main')) {
+  function openLinkedSession() {
+    const target = document.getElementById(window.location.hash.slice(1));
+    if (target?.matches('details.session')) target.open = true;
+  }
+
+  window.addEventListener('hashchange', openLinkedSession);
+  openLinkedSession();
 }

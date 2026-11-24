@@ -7,10 +7,13 @@
   <meta name="description" content="과학·보건·사회·미술·역사·영어 6개 교과의 디지털 미디어 리터러시 수업 12편.">
   <title>슬기로운 디지털 문해생활</title>
   <link rel="stylesheet" href="assets/style.css">
-  <link rel="stylesheet" href="assets/story.css?v=2">
+  <link rel="stylesheet" href="assets/story.css?v=3">
+  <link rel="stylesheet" href="assets/search.css?v=3">
   <link rel="preload" as="image" href="assets/hero.webp">
   <link rel="preload" as="font" href="assets/fonts/myeongjo.woff" type="font/woff" crossorigin>
-  <script src="assets/site.js?v=2" defer></script>
+  <script src="assets/site.js?v=3" defer></script>
+  <script src="assets/search-index.js?v=3" defer></script>
+  <script src="assets/search.js?v=3" defer></script>
 </head>
 <body class="webzine">
 <a class="skip-link" href="#subjects">교과별 수업으로 이동</a>
@@ -23,12 +26,12 @@
     <div class="shell header-row">
       <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true"></span>디지털 미디어 리터러시 교육 지원 자료</a>
       <nav class="header-links" aria-label="주 메뉴">
-      <a href="#subjects">교과별 수업 보기</a>
+        <a href="#subjects">교과별 수업 보기</a>
         <a class="pdf-button" href="https://drive.google.com/file/d/1oHFbGTHitLCZoC8ndZX6Gexwn5Ip-Q_L/view?usp=drivesdk" target="_blank" rel="noopener noreferrer">원문 PDF 보기</a>
       </nav>
     </div>
   </div>
-  <div class="shell cover-copy">
+  <div class="shell cover-copy" data-search-section="cover-title">
     <h1 class="display" id="cover-title"><span>슬기로운</span> 디지털 문해생활</h1>
     <p>같은 장면은 왜 다르게 보일까요?</p>
   </div>
@@ -40,7 +43,7 @@
 
 <main>
   <article aria-labelledby="cover-title">
-    <section class="photo-chapter" aria-labelledby="photo-title">
+    <section class="photo-chapter" aria-labelledby="photo-title" data-search-section="photo-title">
       <div class="reading-column chapter-intro" id="opening">
         <a class="lesson-ref" href="lessons/english-11.html">영어 11 · 같은 사건, 다른 시선<span aria-hidden="true"> ↗</span></a>
         <p>도심 광장에 팻말을 든 사람들이 모여 있습니다. 그 곁을 보행자가 지나갑니다.</p>
@@ -85,7 +88,7 @@
       </div>
     </section>
 
-    <section class="science-chapter" aria-labelledby="scope-title">
+    <section class="science-chapter" aria-labelledby="scope-title" data-search-section="scope-title">
       <div class="reading-column chapter-intro">
         <a class="lesson-ref" href="lessons/science-01.html">과학 01 · 보이는 친환경, 숨겨진 진실<span aria-hidden="true"> ↗</span></a>
         <h2 class="display" id="scope-title">두 기사는 어디서부터<br>어디까지 셌을까요?</h2>
@@ -118,7 +121,7 @@
       </div>
     </section>
 
-    <section class="reading-column classroom" aria-labelledby="classroom-title">
+    <section class="reading-column classroom" aria-labelledby="classroom-title" data-search-section="classroom-title">
       <h2 class="display" id="classroom-title">이 질문을 교실로<br>가져가 보세요.</h2>
       <p>과학에서는 배출량을 계산해 기사의 주장을 검토합니다. 영어에서는 같은 사진에 붙은 제목이 독자의 인상을 어떻게 바꾸는지 살펴봅니다.</p>
       <p>학생이 직접 제목을 쓴다면 어떤 단어를 고르고, 그 선택을 어떤 근거로 설명할까요? 여섯 교과에서 수업을 골라보세요.</p>
@@ -126,6 +129,16 @@
   </article>
   <section class="shell school-index" id="subjects" aria-labelledby="subjects-title">
     <h2 class="subject-label" id="subjects-title">교과별 수업</h2>
+    <form class="lesson-search" role="search" aria-label="웹진 본문 검색" data-lesson-search hidden>
+      <label for="search-query">본문 검색</label>
+      <div class="search-field">
+        <input id="search-query" name="q" type="search" placeholder="단어나 문구를 입력하세요"
+               autocomplete="off" enterkeyhint="search">
+        <button type="submit">검색</button>
+      </div>
+      <p class="search-status" role="status"></p>
+    </form>
+    <ul class="search-results" data-search-results aria-label="본문 검색 결과" hidden></ul>
     <nav class="subject-menu" aria-label="교과 선택" data-subject-menu>
       <a href="#science" data-subject="science" aria-controls="science">과학</a>
       <a href="#health" data-subject="health" aria-controls="health">보건</a>
